@@ -1,3 +1,4 @@
+
 \chapter{Desenvolvimento de Software}
 
 \section*{Requisitos}
@@ -24,6 +25,45 @@ A sessão de \textit{brainstorming} foi realizada com a participação de alunos
 \end{itemize}
 
 A partir dessa elicitação inicial, os requisitos serão refinados nas próximas etapas do desenvolvimento, como modelagem e validação, garantindo que o sistema atenda de forma eficaz às necessidades dos usuários.
+
+
+\section{Priorização de Requisitos com a Técnica MoSCoW}
+
+Após a etapa de elicitação, torna-se essencial organizar e classificar os requisitos identificados de acordo com sua importância e urgência. Essa priorização orienta o desenvolvimento incremental do sistema, garantindo que as funcionalidades mais críticas sejam implementadas primeiro, otimizando o uso de recursos e atendendo às expectativas principais dos \textit{stakeholders} \cite{pressman2016engenharia}.
+
+Neste trabalho, foi adotada a técnica \textbf{MoSCoW} para a priorização dos requisitos. Essa técnica, bastante utilizada em metodologias ágeis, categoriza os requisitos em quatro grupos principais: \textit{Must have}, \textit{Should have}, \textit{Could have} e \textit{Won’t have for now} \cite{clegg1994moscow, wiegers2013software}.
+
+\begin{itemize}
+    \item \textbf{Must have (Deve ter):} Requisitos essenciais para o funcionamento mínimo do sistema. Sem esses itens, o sistema não atende ao seu propósito.
+    \item \textbf{Should have (Deveria ter):} Requisitos importantes, mas não críticos. Sua ausência pode ser contornada temporariamente sem impactar significativamente o uso do sistema.
+    \item \textbf{Could have (Poderia ter):} Requisitos desejáveis, que agregam valor, mas são menos prioritários. Podem ser implementados caso haja tempo e recursos disponíveis.
+    \item \textbf{Won’t have for now (Não terá por enquanto):} Requisitos identificados, mas que não serão incluídos nesta versão do sistema, podendo ser considerados em futuras iterações.
+\end{itemize}
+
+A Tabela~\ref{tab:priorizacao} apresenta a priorização dos requisitos levantados na etapa de elicitação, com base na técnica MoSCoW.
+
+\begin{table}[H]
+\centering
+\caption{Priorização dos requisitos segundo a técnica MoSCoW}
+\label{tab:priorizacao}
+\begin{tabular}{|p{6cm}|c|p{6cm}|}
+\hline
+\textbf{Requisito} & \textbf{Prioridade} & \textbf{Justificativa} \\
+\hline
+Abertura de Solicitação de Estágio pelo Aluno & Must have & Essencial para iniciar o processo de estágio; funcionalidade central do sistema. \\
+\hline
+Indicação Automática de Professor Orientador & Should have & Importante para agilizar o processo, mas pode ser feita manualmente em um primeiro momento. \\
+\hline
+Gerenciamento da Assinatura do Professor Orientador & Must have & Fundamental para garantir a formalização do processo de estágio e reduzir burocracia. \\
+\hline
+Visualização de Alunos Vinculados a Cada Orientador & Should have & Facilita o acompanhamento, mas o processo pode iniciar sem essa funcionalidade completa. \\
+\hline
+Login Único (SSO) & Could have & Facilita o acesso, mas pode ser implementado após uma versão inicial com login próprio. \\
+\hline
+\end{tabular}
+\end{table}
+
+Essa priorização permitirá que a equipe de desenvolvimento foque inicialmente nos requisitos que compõem o núcleo funcional do sistema, entregando uma primeira versão utilizável o quanto antes. Os requisitos classificados como \textit{Should have} e \textit{Could have} poderão ser incorporados gradualmente, conforme a evolução do projeto e a disponibilidade de recursos \cite{somerville2011engenharia}.
 
 
 \section*{Tecnologias}
