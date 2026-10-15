@@ -1,14 +1,49 @@
-\chapter[Referencial Teórico]{Referencial Teórico}
+\chapter{Base Tecnológica}
 
-Este capítulo apresenta a metodologia utilizada para conduzir o desenvolvimento deste trabalho de conclusão de curso. Inicialmente, descreve-se a classificação da pesquisa e as etapas que compõem o planejamento e execução do projeto. Em seguida, detalham-se os procedimentos adotados para a construção do referencial teórico, bem como a metodologia aplicada no desenvolvimento do sistema proposto, que segue uma abordagem ágil visando maior flexibilidade e eficiência. Por fim, aborda-se a estratégia de gerência de configuração e evolução de software, essencial para assegurar a qualidade, rastreabilidade e facilidade de manutenção do sistema ao longo do tempo.
+\section{JMeter}
+
+O \textit{Apache JMeter} é uma ferramenta de código aberto desenvolvida para realizar testes de desempenho 
+e carga em aplicações. Com suporte a diversos protocolos — como HTTP, HTTPS, FTP, JDBC e SOAP — 
+o JMeter permite simular múltiplos usuários simultâneos interagindo com um sistema, a fim de mensurar o 
+tempo de resposta, estabilidade e escalabilidade da aplicação. Sua interface gráfica facilita a configuração 
+de cenários de teste, além de permitir a análise de métricas por meio de relatórios e gráficos. 
+É amplamente utilizado para validar a robustez de sistemas web e serviços RESTful, sendo útil em 
+ambientes de desenvolvimento, homologação e produção \cite{jmeter_doc}.
+
+\section{RabbitMQ}
+
+O \textit{RabbitMQ} é um sistema de mensageria leve e eficiente baseado no protocolo AMQP (Advanced Message Queuing Protocol). 
+Ele atua como intermediador na comunicação entre microsserviços, promovendo o desacoplamento e a escalabilidade das aplicações. 
+Através do uso de filas e trocas (exchanges), o RabbitMQ permite que mensagens sejam transmitidas de maneira assíncrona entre 
+produtores e consumidores, garantindo maior tolerância a falhas e melhor controle de fluxo. É amplamente adotado em arquiteturas 
+orientadas a eventos e sistemas distribuídos que exigem alta disponibilidade e confiabilidade na troca de mensagens \cite{rabbitmq_doc}.
+
+\section{Selenium}
+
+O \textit{Selenium} é uma suíte de ferramentas voltada à automação de testes para aplicações web. 
+Seu componente mais utilizado, o Selenium WebDriver, permite controlar navegadores de forma programática, 
+simulando interações humanas como cliques, preenchimento de formulários e navegação entre páginas. 
+A ferramenta é compatível com diversas linguagens de programação, como Java, Python e JavaScript, 
+além de suportar múltiplos navegadores (Chrome, Firefox, Edge, entre outros). O Selenium é especialmente útil 
+para testes de regressão, garantindo que funcionalidades anteriores não sejam comprometidas por novas implementações \cite{selenium_doc}.
+
 
 \section{Login Único}
 
 O Login Único, iniciativa desenvolvida pelo Governo Federal, apresenta-se como uma solução estratégica de autenticação digital voltada à centralização do acesso do cidadão aos serviços públicos eletrônicos. Atuando como uma credencial universal, essa plataforma visa simplificar a experiência do usuário, promovendo a integração entre os diversos sistemas governamentais. 
+\footnote{https://www.gov.br/compras/pt-br/acesso-a-informacao/perguntas-frequentes/doacoes/doador/5-o-que-e-login}
 
-De acordo com o Roteiro Técnico de Solicitação de Credencial de Processo, a integração de sistemas ao Login Único segue um fluxo estruturado que inclui solicitação formal, validação em ambiente de homologação, envio de evidências técnicas e aprovação para uso em produção. Essa estrutura não apenas garante a conformidade técnica dos serviços integrados, como também assegura a proteção dos dados pessoais, em consonância com os princípios da segurança da informação. A arquitetura do Login Único baseia-se no protocolo OAuth 2.0, amplamente adotado no contexto da autenticação digital moderna, permitindo a implementação de fluxos seguros de autorização e gerenciamento de sessões. A plataforma ainda prevê níveis diferenciados de identidade (bronze, prata e ouro), os quais definem a profundidade do acesso conforme o grau de confiabilidade atribuído ao usuário.
+De acordo com o Roteiro Técnico de Solicitação de Credencial de Processo \footnote{https://acesso.gov.br/roteiro-tecnico/}, 
+a integração de sistemas ao Login Único segue um fluxo estruturado que inclui solicitação formal, validação em ambiente de 
+homologação, envio de evidências técnicas e aprovação para uso em produção. Essa estrutura não apenas garante a conformidade 
+técnica dos serviços integrados, como também assegura a proteção dos dados pessoais, 
+em consonância com os princípios da segurança da informação. A arquitetura do Login Único baseia-se no protocolo OAuth 2.0, 
+amplamente adotado no contexto da autenticação digital moderna, permitindo a implementação de fluxos seguros de autorização e 
+gerenciamento de sessões. A plataforma ainda prevê níveis diferenciados de identidade (bronze, prata e ouro), os quais definem a 
+profundidade do acesso conforme o grau de confiabilidade atribuído ao usuário.
 
-Nesse sentido, o Login Único não apenas atua como facilitador do acesso, mas também como um componente fundamental da infraestrutura de cidadania digital no Brasil, promovendo eficiência, padronização e confiança no relacionamento entre Estado e sociedade.~\cite{govbrlogin}
+Nesse sentido, o Login Único não apenas atua como facilitador do acesso, mas também como um componente fundamental da infraestrutura de cidadania digital no Brasil, 
+promovendo eficiência, padronização e confiança no relacionamento entre Estado e sociedade.
 
 
 \section{Assinatura Digital}
@@ -21,8 +56,10 @@ A assinatura digital é fundamental para a digitalização de processos e para g
 
 \subsection{Assinatura Digital no Governo Federal}
 
-O Governo Federal do Brasil adotou a \textit{Assinatura Digital} como uma das principais ferramentas para garantir a autenticidade de documentos e a segurança de transações no âmbito público. Uma das principais plataformas para a implementação da assinatura digital nos serviços governamentais é a \textit{API de Assinatura Digital do GOV.BR}, que integra o \textit{Login Único} e permite a assinatura de documentos eletrônicos por cidadãos e servidores públicos.
+O Governo Federal do Brasil adotou a \textit{Assinatura Digital} como uma das principais ferramentas para garantir a autenticidade de documentos e a segurança de transações no âmbito público. Uma das principais plataformas para a implementação da assinatura digital nos serviços governamentais é a \textit{API de Assinatura Digital do GOV.BR} \footnote{https://www.gov.br/governodigital/pt-br/identidade/assinatura-eletronica/assinatura-eletronica-para-orgaos}, que integra o \textit{Login Único} e permite a assinatura de documentos eletrônicos por cidadãos e servidores públicos.
+
 
 Essa plataforma utiliza os padrões de segurança estabelecidos pela ICP-Brasil, permitindo que documentos sejam assinados digitalmente por meio de certificados emitidos por Autoridades Certificadoras credenciadas. O uso dessa tecnologia visa facilitar o processo de digitalização de serviços públicos e promover a eficiência na prestação de serviços ao cidadão. A assinatura digital proporcionada pelo GOV.BR garante não apenas a autenticidade dos documentos, mas também assegura que os dados sensíveis, como informações pessoais, estejam protegidos contra fraudes e acessos não autorizados.
 
-De acordo com o ~\cite{govbrassinaeletronica}, "a plataforma de Assinatura Eletrônica para órgãos oferece uma solução eficaz e segura para a autenticação de documentos, permitindo que os órgãos públicos assinem digitalmente documentos com validade jurídica, conforme os requisitos da ICP-Brasil".
+De acordo com o Governo Digital do Brasil, ``a plataforma de Assinatura Eletrônica para órgãos oferece uma solução eficaz e segura para a autenticação de documentos, 
+permitindo que os órgãos públicos assinem digitalmente documentos com validade jurídica, conforme os requisitos da ICP-Brasil''.

@@ -1,15 +1,23 @@
 
 \chapter{Desenvolvimento de Software}
 
-\section*{Requisitos}
+\section{Requisitos}
 
-A etapa de elicitação de requisitos tem alta relevância no processo de desenvolvimento de sistemas, uma vez que é nela que se visa adquirir todas as informações necessárias para compreender, de forma clara e precisa, as reais necessidades dos usuários e demais envolvidos. Desse modo as expectativas em relação ao sistema são adquiridas, possibilitando a formatação dos requisitos funcionais e não funcionais.
+De acordo com \citeonline{somerville2011engenharia} a etapa de elicitação de requisitos tem alta relevância no processo de desenvolvimento de sistemas, 
+uma vez que é nela que se visa adquirir todas as informações necessárias para compreender, de forma clara e precisa, as reais necessidades dos usuários e demais envolvidos. 
+Desse modo as expectativas em relação ao sistema são adquiridas, possibilitando a formatação dos requisitos funcionais e não funcionais.
 
-Essa atividade é geralmente feita de modo interativo e, muitas vezes, utilizando várias estratégias para se adquirir um entendimento abrangente da situação. Entrevistas, questionários, \textit{workshops}, observações e sessões de \textit{brainstorming} são alguns exemplos das técnicas mais utilizadas. A escolha de uma determinada técnica depende do projeto, da disponiblidade dos participantes e do tipo de informação que será levantada.
+Essa atividade é geralmente feita de modo interativo e, 
+muitas vezes, utilizando várias estratégias para se adquirir um entendimento abrangente da situação. 
+Entrevistas, questionários, \textit{workshops}, observações e sessões de \textit{brainstorming} são alguns exemplos das técnicas mais utilizadas. 
+A escolha de uma determinada técnica depende do projeto, da disponiblidade dos participantes e do tipo de informação que será levantada.
 
-Neste trabalho, optou-se por utilizar a técnica de \textit{brainstorming} como abordagem principal para a elicitação de requisitos. O \textit{brainstorming} é uma técnica criativa de geração de ideias que incentiva a participação ativa de todos os envolvidos, promovendo um ambiente livre de julgamentos e ideal para a coleta de sugestões espontâneas e diversas. Essa técnica mostrou-se adequada por permitir a rápida coleta de informações de diferentes pontos de vista, especialmente em um ambiente acadêmico com múltiplos atores, como alunos, professores e coordenadores.
+Neste trabalho, optou-se por utilizar a técnica de \textit{brainstorming} como abordagem principal para a elicitação de requisitos. 
+O \textit{brainstorming} é uma técnica criativa de geração de ideias que incentiva a participação ativa de todos os envolvidos, promovendo um ambiente livre de julgamentos e ideal para a coleta de sugestões espontâneas e diversas. 
+Essa técnica mostrou-se adequada por permitir a rápida coleta de informações de diferentes pontos de vista, especialmente em um ambiente acadêmico com múltiplos atores, como alunos, professores e coordenadores.
 
-A sessão de \textit{brainstorming} foi realizada com a participação de alunos que já passaram pelo processo de estágio e o professor que atua gerenciando esse processo. Durante a discussão, foram levantadas diversas funcionalidades esperadas para o sistema, sendo as principais listadas a seguir:
+A sessão de \textit{brainstorming} foi realizada com a participação de alunos que já passaram pelo processo de estágio e o professor que atua gerenciando esse processo. 
+Durante a discussão, foram levantadas diversas funcionalidades esperadas para o sistema, sendo as principais listadas a seguir:
 
 
 \begin{itemize}
@@ -17,13 +25,13 @@ A sessão de \textit{brainstorming} foi realizada com a participação de alunos
     
     \item \textbf{Indicação Automática de Professor Orientador:} Com base em critérios definidos previamente, como área de atuação ou disponibilidade, o sistema deverá sugerir automaticamente um professor orientador para acompanhar o estágio do aluno.
     
-    \item \textbf{Gerenciamento da Assinatura do Professor Orientador:} O sistema deverá fornecer funcionalidades para que o professor orientador possa revisar, aprovar e assinar eletronicamente os documentos de estágio, garantindo praticidade e segurança.
+    \item \textbf{Gerenciamento da Assinatura do Professor Orientador e Aluno:} O sistema deverá fornecer funcionalidades para que o professor e aluno possa assinar eletronicamente os documentos de estágio, garantindo praticidade e segurança.
     
-    \item \textbf{Visualização de Alunos Vinculados a Cada Orientador:} Cada professor deverá ter acesso a uma lista com os alunos que o indicaram ou que foram automaticamente vinculados a ele como orientador, com dados relevantes do estágio em andamento.
+    \item \textbf{Visualização de Alunos Vinculados a Cada Orientador:} Cada professor deverá ter acesso a uma lista com os alunos que o indicaram ou que foram automaticamente vinculados a ele como orientador e em que pé se encontra o processo de assinatura do termo de compromisso do estágio.
     
     \item \textbf{Login Único:} O sistema deverá integrar-se com a plataforma institucional, utilizando autenticação por login único (\textit{Single Sign-On – SSO}), de modo que alunos e professores possam acessar o sistema com suas credenciais institucionais já existentes.
     
-    \item \textbf{IA para reconhecimento de termo de compromisso:} Utilizar a IA para identificar termos de compromisso válidos
+    \item \textbf{IA para reconhecimento de termo de compromisso:} Utilizar a IA para identificar termos de compromisso válidos(ainda será avaliado a viabilidade)
 \end{itemize}
 
 A partir dessa elicitação inicial, os requisitos serão refinados nas próximas etapas do desenvolvimento, como modelagem e validação, garantindo que o sistema atenda de forma eficaz às necessidades dos usuários.
@@ -31,15 +39,14 @@ A partir dessa elicitação inicial, os requisitos serão refinados nas próxima
 
 \section{Priorização de Requisitos com a Técnica MoSCoW}
 
-Após a etapa de elicitação, torna-se essencial organizar e classificar os requisitos identificados de acordo com sua importância e urgência. Essa priorização orienta o desenvolvimento incremental do sistema, garantindo que as funcionalidades mais críticas sejam implementadas primeiro, otimizando o uso de recursos e atendendo às expectativas principais dos \textit{stakeholders}
-
+Após a etapa de elicitação, torna-se essencial organizar e classificar os requisitos identificados de acordo com sua importância e urgência. Segundo \cite{somerville2011engenharia}, a priorização de requisitos visa garantir que as funcionalidades mais críticas sejam implementadas primeiro, otimizando o uso de recursos e atendendo às expectativas principais dos stakeholders. A priorização orienta o desenvolvimento incremental do sistema, assegurando que as funcionalidades essenciais sejam entregues nas primeiras versões.
 Neste trabalho, foi adotada a técnica \textbf{MoSCoW} para a priorização dos requisitos. Essa técnica, bastante utilizada em metodologias ágeis, categoriza os requisitos em quatro grupos principais: \textit{Must have}, \textit{Should have}, \textit{Could have} e \textit{Won’t have for now}.
 
 \begin{itemize}
     \item \textbf{Must have (Deve ter):} Requisitos essenciais para o funcionamento mínimo do sistema. Sem esses itens, o sistema não atende ao seu propósito.
     \item \textbf{Should have (Deveria ter):} Requisitos importantes, mas não críticos. Sua ausência pode ser contornada temporariamente sem impactar significativamente o uso do sistema.
     \item \textbf{Could have (Poderia ter):} Requisitos desejáveis, que agregam valor, mas são menos prioritários. Podem ser implementados caso haja tempo e recursos disponíveis.
-    \item \textbf{Won’t have for now (Não terá por enquanto):} Requisitos identificados, mas que não serão incluídos nesta versão do sistema, podendo ser considerados em futuras iterações.
+    \item \textbf{Wont have for now (Não terá por enquanto):} Requisitos identificados, mas que não serão incluídos nesta versão do sistema, podendo ser considerados em futuras iterações.
 \end{itemize}
 
 A Tabela~\ref{tab:priorizacao} apresenta a priorização dos requisitos levantados na etapa de elicitação, com base na técnica MoSCoW.
@@ -56,22 +63,159 @@ Abertura de Solicitação de Estágio pelo Aluno & Must have & Essencial para in
 \hline
 Indicação Automática de Professor Orientador & Should have & Importante para agilizar o processo, mas pode ser feita manualmente em um primeiro momento. \\
 \hline
-Gerenciamento da Assinatura do Professor Orientador & Must have & Fundamental para garantir a formalização do processo de estágio e reduzir burocracia. \\
+Gerenciamento da Assinatura do Professor Orientador e Aluno & Must have & Fundamental para garantir a formalização do processo de estágio e reduzir burocracia. \\
 \hline
 Visualização de Alunos Vinculados a Cada Orientador & Should have & Facilita o acompanhamento, mas o processo pode iniciar sem essa funcionalidade completa. \\
 \hline
-Login Único (SSO) & Could have & Facilita o acesso, mas pode ser implementado após uma versão inicial com login próprio. \\
+Login Único (SSO) & Must have & Facilita o acesso, e é necessário para a utilização da api de assinatura digital do gov \\
+\hline
+IA para reconhecimento de termo de compromisso & Could have & facilita para o orientador pois só chegará a ele documentos válidos. \\
 \hline
 \end{tabular}
 \end{table}
 
 Essa priorização permitirá que a equipe de desenvolvimento foque inicialmente nos requisitos que compõem o núcleo funcional do sistema, entregando uma primeira versão utilizável o quanto antes. Os requisitos classificados como \textit{Should have} e \textit{Could have} poderão ser incorporados gradualmente, conforme a evolução do projeto e a disponibilidade de recursos \cite{somerville2011engenharia}.
 
+\section{Arquitetura}
+A arquitetura de software de um sistema, como descrito por \citeonline{bass2012software}, 
+representa a estrutura fundamental que orienta sua construção e evolução. Para o 
+SIGCE, adotamos uma arquitetura moderna que combina os princípios da 
+Arquitetura Limpa (Clean Architecture), \cite{martin2008clean}, com as práticas do 
+Domain-Driven Design (DDD), \cite{evans2003domain}. Essa escolha visa atender a requisitos 
+não funcionais essenciais, como manutenibilidade e escalabilidade, garantindo um 
+sistema robusto, com baixo acoplamento e centrado nas complexas regras de negócio da 
+gestão de estágios. 
 
-\section*{Tecnologias}
-Esse sessão está separada para a descrição das tecnologias utilizadas no desenvolvimento
+A Arquitetura Limpa organiza o sistema em camadas concêntricas, seguindo a Regra de Dependência, 
+que estabelece que as dependências devem sempre apontar para o núcleo do sistema. Isso significa que as camadas externas, 
+como bancos de dados, frameworks e serviços de terceiros, não devem afetar as camadas internas, que são responsáveis pelas 
+regras de negócio essenciais, como as Entidades (exemplo: Estágio e Aluno) e os Casos de Uso (como ``Submeter Termo de Compromisso''). 
+Essa separação de responsabilidades é fundamental para a longevidade e flexibilidade do software.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[keepaspectratio=true,scale=0.6]{figuras/arquitetura.eps}
+	\label{fig:arquitetura}
+    \caption{Diagrama de Arquitetura limpa}
+    \textit{Fonte: Autor.}
+\end{figure}
+
+\subsection{Arquitetura de Microsserviços}
+A adoção de microsserviços visa proporcionar um maior desacoplamento e aumentar a resiliência do sistema. 
+Alinhado ao DDD, cada microsserviço é encarado como um Contexto Delimitado, com responsabilidades claras e bem definidas. 
+O SIGCE contará com dois microsserviços principais:
+
+\subsubsection{Microsserviço de Autenticação e Autorização}
+Este microsserviço será responsável por gerenciar a identidade e o controle de acesso do sistema, 
+funcionando como um gateway de segurança. Suas principais funções são:
+
+\begin{itemize}
+    \item Autenticação via GOV.BR
+    \item Definição de Papel (Role)
+\end{itemize}
+
+\subsubsection{Microsserviço de Assinaturas e Conformidade de Documentos}
+Inspirado na necessidade de uma ferramenta institucional para assinatura digital, 
+este microsserviço automatizará o processo de assinatura e validação de documentos. Suas responsabilidades incluem:
+\begin{itemize}
+    \item Gestão de Assinaturas Digitais
+    \item Análise de Conformidade de Documentos
+\end{itemize}
+A adoção de microsserviços permite que a falha ou manutenção de um serviço, como o de assinaturas, não afete a operação total do sistema, melhorando a resiliência e a escalabilidade. 
 
 
-\section*{Arquitetura}
-Aqui a descrição da arquitetura do projeto
+\section{Tecnologias}
+A escolha tecnológica para o SIGCE foi orientada pela necessidade de robustez, 
+performance e uma experiência de desenvolvimento moderna. A stack de desenvolvimento será composta por:
+\begin{itemize}
+    \item Backend: Java 22 com Spring Boot
+    \item Frontend: React com Next.js
+    \item Mensageria: RabbitMQ
+    \item Testes: JMeter e Selenium
+    \item Banco de Dados: PostgreSQL
+\end{itemize}
+O uso de ferramentas como JMeter e Selenium reforça o compromisso com a qualidade, 
+permitindo a implementação de práticas como integração contínua (CI) e desenvolvimento orientado a testes (TDD), que são fundamentais em metodologias ágeis.
 
+\subsection{Processamento Assíncrono com RabbitMQ}
+O RabbitMQ será uma peça central na arquitetura, especialmente no microsserviço de assinaturas. 
+Ele atuará como um message broker, desacoplando a solicitação de assinatura de seu processamento efetivo.
+
+Em vez de processar as assinaturas de forma síncrona, as solicitações serão publicadas em uma fila, 
+e o serviço de assinaturas consumirá as mensagens dessa fila de forma assíncrona. 
+Essa abordagem permite o processamento em lote, otimizando o uso de recursos. 
+Por exemplo, o sistema poderá aguardar a acumulação de documentos ou processá-los em horários de menor carga, liberando recursos computacionais após a execução.
+
+Essa estratégia não só melhora a escalabilidade e a performance percebida pelos usuários, que têm suas solicitações aceitas instantaneamente, como também contribui para a redução dos custos operacionais, um dos principais objetivos do projeto. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[keepaspectratio=true,scale=0.6]{figuras/tecnologia.eps}
+	\label{fig:tecnologias}
+    \caption{Arquitetura de Microsserviços}
+    \textit{Fonte: Autor.}
+\end{figure}
+
+\section{Procedimento de Integraçao com Serviços GOV.BR}
+Para a implementação dos microsserviços de Autenticação e de Assinatura Digital, 
+dependíamos da integração com as APIs da plataforma GOV.BR. Por isso, iniciamos os procedimentos formais de solicitação, 
+que se revelaram um caminho crítico para o avanço do projeto e um ponto de atenção para o cronograma de desenvolvimento.
+
+\subsection{Requerimento e Teste Login Único}
+Realizamos o requerimento para a integração com o Login Único por meio do Portal de Atendimento de Serviços do GOV.BR, sob o número de processo 
+308803.5065558/2024. No formulário de solicitação para ``Integrar Produtos ID'', detalhamos as especificidades do nosso projeto:
+\begin{itemize}
+    \item Nome do Serviço: Identificamos nosso sistema como ``SIGCE-Sistema para a gestão de contratação de estágio para alunos da FCTE''.
+    \item Justificativa: Descrevemos o objetivo de ``centralizar e automatizar o processo de gestão dos contratos de estágio dos alunos da FCTE/UnB, eliminando a necessidade de registros manuais''.
+    \item Público-alvo: Definimos o público-alvo como Estudantes.
+    \item Nível de Segurança: Solicitamos o Nível de Autenticação Ouro, uma vez que o sistema deve ser o Nível Ouro por envolver o manuseio de dados sigilosos.
+\end{itemize}
+
+Após a aprovação inicial da solicitação, o processo avançou para a etapa de Desenvolvimento, 
+o que nos permitiu obter as credenciais de homologação. Com essas credenciais, 
+implementamos e testamos o fluxo de autenticação em nosso ambiente de desenvolvimento, 
+seguindo o roteiro técnico e validando a comunicação com os endpoints de teste do GOV.BR.
+
+\subsection{Dependências e Desafios para a API de Assinatura Digital}
+Durante a análise dos procedimentos, constatamos que a obtenção de acesso à API de 
+Assinatura Digital possui dependências críticas que representam um gargalo para a 
+segunda etapa do Trabalho de Conclusão de Curso (TCC 2).
+
+Verificamos que a solicitação e, principalmente, a liberação de credenciais de produção 
+para a API de Assinatura Digital exigem que o serviço de Login Único já esteja homologado 
+e operando em produção. Ou seja, não pudemos realizar as duas solicitações em paralelo. 
+Primeiro, precisamos concluir toda a implementação do Login Único, submetê-la para aprovação final 
+e publicá-la em um ambiente de produção para, só então, iniciarmos o processo de requerimento da API de assinatura.
+
+Esta dependência sequencial introduz um risco significativo ao cronograma do TCC 2. 
+O tempo necessário para a homologação final do Login Único somado ao tempo de análise e 
+liberação da API de Assinatura Digital cria um período de espera no qual o desenvolvimento do 
+``Microsserviço de Assinaturas e Conformidade'' ficará parcialmente bloqueado, aguardando as credenciais 
+necessárias. Este gargalo foi mapeado e sua gestão será prioritária para garantir o sucesso do projeto na sua fase final.
+
+\section{Proposta}
+A proposta deste trabalho é desenvolver o Sistema de Gestão de Contratação de Estágios da Universidade de Brasília (SIGCE) como parte do Trabalho de Conclusão de Curso 2 (TCC2). O sistema visa automatizar e integrar as etapas do processo de estágio, oferecendo funcionalidades como cadastro de estagiários, empresas e geração de documentos obrigatórios. O cronograma para o TCC2 inclui a implementação das funcionalidades principais, a integração com assinatura digital, testes, documentação detalhada do desenvolvimento e a apresentação final à banca avaliadora. O software será desenvolvido de forma modular, permitindo futuras atualizações e melhorias conforme as necessidades da universidade.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Atividades} & \textbf{Ago} & \textbf{Set} & \textbf{Out} & \textbf{Nov} & \textbf{Dez} \\
+\hline
+Corrigir apontamentos da banca & X & & & & \\
+\hline
+Revisar requisitos e gerar Backlog & X & & & & \\
+\hline
+Desenvolver a ferramenta & X & X & X & X &  \\
+\hline
+Testes e validação do sistema & & X & X & X & \\
+\hline
+Documentação do TCC2 & & X & X & X & X \\
+\hline
+Revisão e ajustes finais & & & X & X & \\
+\hline
+Apresentação do TCC2 & & & & & X \\
+\hline
+\end{tabular}
+\caption{Cronograma do TCC2}
+\end{table}
