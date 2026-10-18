@@ -65,7 +65,7 @@ API de Assinatura Eletrônica em produção & Won't & Depende do Login Único ho
 
 A arquitetura descreve a estrutura que orienta a construção e a mudança do sistema \cite{bass2012software}. O SIGCE adota a Regra da Dependência da Arquitetura Limpa \cite{martin2017clean}: regras de estágio, sorteio e etapas ficam no núcleo, e banco, Gov.br, modelo generativo e fila ficam fora. Os casos de uso dependem de portas, como \texttt{AuthProvider} e \texttt{SignatureProvider}, e a infraestrutura fornece a implementação \cite{evans2003domain}.
 
-O sistema em execução é uma aplicação. O frontend Next.js conversa com um backend Spring Boot. Esse backend concentra autenticação, solicitação, sorteio, documento, revisão, assinatura e auditoria. A Figura~\ref{fig:arquitetura} registra o desenho de camadas usado como referência. A Figura~\ref{fig:implantacao} é o lugar do diagrama da implantação real, com os processos que o \texttt{docker compose} sobe.
+O sistema em execução é uma aplicação. O frontend Next.js conversa com um backend Spring Boot. Esse backend concentra autenticação, solicitação, sorteio, documento, revisão, assinatura e auditoria. A Figura~\ref{fig:arquitetura} registra o desenho de camadas usado como referência. A Figura~\ref{fig:implantacao} mostra a implantação: os quatro acessos, os processos do Docker Compose e os serviços externos. A API de assinatura do Gov.br aparece tracejada porque a porta existe e a chamada de produção não.
 
 \begin{figure}[H]
 	\centering
@@ -75,7 +75,13 @@ O sistema em execução é uma aplicação. O frontend Next.js conversa com um b
 	\fonte{Elaborada pelos autores.}
 \end{figure}
 
-\sigceilustracao{Diagrama}{Substituir este quadro pela figura de implantação. Mostrar o navegador de aluno, professor, gestor e supervisor; o frontend; o backend; PostgreSQL; RabbitMQ; Login Único; o modelo de revisão do PDF; e a validação do histórico no SIGAA. A assinatura Gov.br entra como porta ainda sem chamada de produção.}{Implantação do SIGCE}{fig:implantacao}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=\textwidth]{figuras/implantacao.png}
+	\caption{Implantação do SIGCE}
+	\label{fig:implantacao}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
 As camadas no código do backend são \texttt{domain}, \texttt{application}, \texttt{infrastructure} e \texttt{interfaces}. O domínio guarda o sorteio, os estados da solicitação e as regras curriculares. A aplicação orquestra o fluxo. A infraestrutura implementa persistência, OAuth, armazenamento do PDF, cliente do modelo generativo e a publicação de eventos. A interface expõe a API HTTP.
 
@@ -107,9 +113,15 @@ A API de Assinatura Eletrônica não pôde ser solicitada em paralelo. A libera�
 
 \section{Fluxo implementado}
 
-Depois que o orientador confirma, o termo percorre as etapas mantidas nos modelos de passo. A ordem vigente é: termo anexado, consultar pendências, resolver pendências, assinatura do aluno, assinatura do supervisor, enviar o TCE ao professor, verificar o TCE, assinatura do professor e processo finalizado. A Figura~\ref{fig:fluxo} deve mostrar essa sequência. As capturas correspondentes estão no capítulo de resultados.
+Depois que o orientador confirma, o termo percorre as etapas mantidas nos modelos de passo. A ordem vigente é: termo anexado, consultar pendências, resolver pendências, assinatura do aluno, assinatura do supervisor, enviar o TCE ao professor, verificar o TCE, assinatura do professor e processo finalizado. A Figura~\ref{fig:fluxo} mostra essa sequência, o retorno ao anexo quando o aluno substitui o PDF e o encerramento quando o professor recusa o termo. As capturas de tela correspondentes estão no capítulo de resultados.
 
-\sigceilustracao{Diagrama}{Desenhar o fluxo em uma figura só, na ordem das etapas: solicitação criada, orientador indicado, termo anexado, consultar pendências, resolver pendências, assinatura do aluno, assinatura do supervisor, enviar o TCE ao professor, verificar o TCE, assinatura do professor e processo finalizado. Marcar o retorno ao anexo quando o aluno substitui o PDF e o encerramento quando o professor recusa o termo.}{Etapas da solicitação de estágio no SIGCE}{fig:fluxo}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.92\textwidth]{figuras/fluxo.png}
+	\caption{Etapas da solicitação de estágio no SIGCE}
+	\label{fig:fluxo}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
 O aluno só anexa o termo depois da confirmação do orientador. A revisão devolve itens corretos e itens com pendência. Na consulta, o aluno lê o resultado. Na resolução, marca cada pendência como tratada ou não aplicável, e pode anexar outro PDF. A assinatura do aluno vem depois dessa ciência. Em seguida, o supervisor é convidado por link ou o aluno informa que a assinatura da concedente já está no arquivo. Antes de enviar ao professor, a solicitação tem uma thread de esclarecimentos: a recusa do professor nessa etapa encerra o processo. O professor compara o preview com a revisão, aprova ou recusa, e só então assina.
 
