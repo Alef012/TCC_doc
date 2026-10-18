@@ -1,19 +1,8 @@
 \begin{resumo}
-Este trabalho tem como objetivo o desenvolvimento de um Sistema de Gerenciamento de Contratação de Estágios (SIGCE), 
-focado na centralização e otimização do processo de assinatura e contratação de estágios na Faculdade de Ciências e Tecnologias em Engenharia (FCTE). 
-O sistema proposto visa integrar e automatizar as etapas que envolvem a contratação e assinatura de estágios, melhorando a eficiência, acessibilidade e transparência das informações, 
-além de reduzir a sobrecarga administrativa. 
-Atualmente, o processo de contratação e assinatura de estágios na FCTE é descentralizado e realizado manualmente, 
-o que gera problemas como a redundância de dados, inconsistência nas informações e dificuldades no acompanhamento das atividades. 
-O sistema SIGCE propõe resolver essas questões ao centralizar as informações, melhorar a comunicação entre alunos, professores, 
-orientadores e setores administrativos e garantir maior controle sobre os prazos e documentos obrigatórios, como termos de compromisso. 
-O desenvolvimento do SIGCE adota uma metodologia ágil, utilizando o Scrum para garantir entregas incrementais e maior flexibilidade no processo. 
-A arquitetura do sistema é baseada nos princípios de Arquitetura Limpa e Domain-Driven Design (DDD), com a implementação de microsserviços para garantir escalabilidade e flexibilidade. 
-Além disso, o sistema integrará tecnologias como o Login Único do Governo Federal e a assinatura digital, garantindo maior segurança e conformidade com as normas legais. 
-Ao final, espera-se que o SIGCE ofereça uma solução robusta para a gestão de contratação e assinatura de estágios na FCTE, promovendo uma experiência mais ágil e transparente para todos os envolvidos.
+Este trabalho apresenta o SIGCE, sistema web para a gestão da contratação de estágio dos alunos da Faculdade de Ciências e Tecnologias em Engenharia (FCTE), da Universidade de Brasília. O processo tratado reúne a abertura da solicitação, a indicação do professor orientador e a tramitação do Termo de Compromisso de Estágio até a conferência e a assinatura do orientador. O desenvolvimento foi aplicado e organizado em entregas incrementais, com elicitação por \textit{brainstorming} junto a estudantes que já haviam estagiado e ao professor responsável pelo processo. O sistema foi construído como uma aplicação única, com frontend em Next.js, backend em Spring Boot e PostgreSQL, organizada em camadas segundo a Arquitetura Limpa. O acesso é feito pelo Login Único do Gov.br. O sorteio de orientador reutiliza a regra de raio já empregada no bot de Telegram da comissão de estágios. O termo anexado pelo aluno passa por uma revisão assistida por modelo generativo, que aponta pendências sem substituir a análise do professor. Aluno, supervisor da concedente e professor orientador percorrem assinaturas distintas; a chamada à API de Assinatura Eletrônica do Gov.br permanece condicionada à homologação do Login Único em produção. O resultado é uma plataforma que concentra o acompanhamento do processo na FCTE e registra, de forma explícita, o limite da revisão automática e o da assinatura ainda não integrada.
 
  \vspace{\onelineskip}
     
  \noindent
- \textbf{Palavras-chave}: assinatura digital. estágios. desenvolvimento. software.
+ \textbf{Palavras-chave}: gestão de estágio. Login Único. termo de compromisso. FCTE.
 \end{resumo}

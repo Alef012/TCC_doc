@@ -1,65 +1,37 @@
 \chapter{Base Tecnológica}
 
-\section{JMeter}
+Este capítulo reúne as normas que o fluxo de estágio precisa respeitar e as tecnologias usadas na construção e na verificação do SIGCE. Cada ferramenta é descrita pelo papel que exerce no sistema.
 
-O \textit{Apache JMeter} é uma ferramenta de código aberto desenvolvida para realizar testes de desempenho 
-e carga em aplicações. Com suporte a diversos protocolos — como HTTP, HTTPS, FTP, JDBC e SOAP — 
-o JMeter permite simular múltiplos usuários simultâneos interagindo com um sistema, a fim de mensurar o 
-tempo de resposta, estabilidade e escalabilidade da aplicação. Sua interface gráfica facilita a configuração 
-de cenários de teste, além de permitir a análise de métricas por meio de relatórios e gráficos. 
-É amplamente utilizado para validar a robustez de sistemas web e serviços RESTful, sendo útil em 
-ambientes de desenvolvimento, homologação e produção \cite{jmeter_doc}.
+\section{Estágio na graduação}
 
-\section{RabbitMQ}
+A Lei nº 11.788, de 25 de setembro de 2008, define o estágio como ato educativo supervisionado, desenvolvido no ambiente de trabalho, e exige termo de compromisso entre o estudante, a parte concedente e a instituição de ensino \cite{lei11788}. No estágio não obrigatório, a lei prevê bolsa e auxílio-transporte. A Resolução CEPE nº 104/2021 estabelece o regulamento geral de estágios de graduação da UnB: distingue estágio obrigatório e não obrigatório, exige Termo de Compromisso e Plano de Atividades, e determina acompanhamento por professor orientador da UnB e por supervisor da concedente \cite{cepe1042021}.
 
-O \textit{RabbitMQ} é um sistema de mensageria leve e eficiente baseado no protocolo AMQP (Advanced Message Queuing Protocol). 
-Ele atua como intermediador na comunicação entre microsserviços, promovendo o desacoplamento e a escalabilidade das aplicações. 
-Através do uso de filas e trocas (exchanges), o RabbitMQ permite que mensagens sejam transmitidas de maneira assíncrona entre 
-produtores e consumidores, garantindo maior tolerância a falhas e melhor controle de fluxo. É amplamente adotado em arquiteturas 
-orientadas a eventos e sistemas distribuídos que exigem alta disponibilidade e confiabilidade na troca de mensagens \cite{rabbitmq_doc}.
-
-\section{Selenium}
-
-O \textit{Selenium} é uma suíte de ferramentas voltada à automação de testes para aplicações web. 
-Seu componente mais utilizado, o Selenium WebDriver, permite controlar navegadores de forma programática, 
-simulando interações humanas como cliques, preenchimento de formulários e navegação entre páginas. 
-A ferramenta é compatível com diversas linguagens de programação, como Java, Python e JavaScript, 
-além de suportar múltiplos navegadores (Chrome, Firefox, Edge, entre outros). O Selenium é especialmente útil 
-para testes de regressão, garantindo que funcionalidades anteriores não sejam comprometidas por novas implementações \cite{selenium_doc}.
-
+O SIGCE materializa parte dessas regras na abertura da solicitação. Estágio não obrigatório exige bolsa. Aproveitamento como Estágio Supervisionado exige ao menos 70\% de integralização e a disciplina correspondente no projeto pedagógico do curso. A revisão do PDF confronta o documento anexado com o cadastro e com esses critérios. O tratamento de dados pessoais do histórico e do termo observa a Lei nº 13.709/2018, que exige finalidade e acesso restrito a quem participa do processo \cite{lgpd2018}.
 
 \section{Login Único}
 
-O Login Único, iniciativa desenvolvida pelo Governo Federal, apresenta-se como uma solução estratégica de autenticação digital voltada à centralização do acesso do cidadão aos serviços públicos eletrônicos. Atuando como uma credencial universal, essa plataforma visa simplificar a experiência do usuário, promovendo a integração entre os diversos sistemas governamentais. 
-\footnote{https://www.gov.br/compras/pt-br/acesso-a-informacao/perguntas-frequentes/doacoes/doador/5-o-que-e-login}
+O Login Único é a credencial da plataforma Gov.br para acesso a serviços públicos digitais. A integração de um sistema segue solicitação formal, homologação, envio de evidências e autorização de produção \cite{govbrlogin}. O protocolo é o OAuth 2.0, no qual o usuário autoriza o serviço sem entregar a senha à aplicação \cite{hardt2012oauth}. A conta possui níveis de confiabilidade bronze, prata e ouro. Quanto mais alto o nível, maior o conjunto de dados que o serviço pode solicitar.
 
-De acordo com o Roteiro Técnico de Solicitação de Credencial de Processo \footnote{https://acesso.gov.br/roteiro-tecnico/}, 
-a integração de sistemas ao Login Único segue um fluxo estruturado que inclui solicitação formal, validação em ambiente de 
-homologação, envio de evidências técnicas e aprovação para uso em produção. Essa estrutura não apenas garante a conformidade 
-técnica dos serviços integrados, como também assegura a proteção dos dados pessoais, 
-em consonância com os princípios da segurança da informação. A arquitetura do Login Único baseia-se no protocolo OAuth 2.0, 
-amplamente adotado no contexto da autenticação digital moderna, permitindo a implementação de fluxos seguros de autorização e 
-gerenciamento de sessões. A plataforma ainda prevê níveis diferenciados de identidade (bronze, prata e ouro), os quais definem a 
-profundidade do acesso conforme o grau de confiabilidade atribuído ao usuário.
+No SIGCE, o Login Único é o único acesso de estudante e professor. A sessão da aplicação é um \textit{cookie} \texttt{HttpOnly}. O nível ouro foi pedido no requerimento do serviço porque o fluxo manipula CPF, histórico escolar e documento de estágio. O supervisor da concedente não usa essa conta: entra por um link associado à solicitação.
 
-Nesse sentido, o Login Único não apenas atua como facilitador do acesso, mas também como um componente fundamental da infraestrutura de cidadania digital no Brasil, 
-promovendo eficiência, padronização e confiança no relacionamento entre Estado e sociedade.
+\section{Assinatura eletrônica}
 
+A assinatura eletrônica busca garantir autoria e integridade de um documento. A Medida Provisória nº 2.200-2, de 24 de agosto de 2001, institui a Infraestrutura de Chaves Públicas Brasileira (ICP-Brasil) e admite documentos eletrônicos assinados com certificado dessa infraestrutura \cite{mp22002}. O Gov.br oferece, sobre o Login Único, uma API de assinatura eletrônica para órgãos \cite{govbrassinaeletronica}.
 
-\section{Assinatura Digital}
+O SIGCE separa duas coisas. O fluxo de negócio já define quem assina e em que ordem: o aluno, o supervisor da concedente e, por último, o professor orientador. A chamada HTTP à API do Gov.br está isolada na porta \texttt{SignatureProvider}. A implementação de produção dessa porta ainda não é chamada, porque a credencial depende do Login Único em produção. Enquanto isso, a aplicação registra a etapa de assinatura por uma implementação substituta da mesma porta, sem apresentar esse registro como certificado ICP-Brasil.
 
-A assinatura digital é uma tecnologia utilizada para garantir a autenticidade, integridade e não-repúdio de documentos e transações realizadas no meio eletrônico. Ela utiliza a criptografia assimétrica, onde um par de chaves é utilizado: uma chave privada, que é mantida em sigilo pelo proprietário, e uma chave pública, que é disponibilizada para verificação. A assinatura digital é gerada a partir da chave privada do assinante e serve para garantir que o documento ou transação não foi alterado desde que foi assinado, além de confirmar a identidade do signatário.
+\section{Revisão assistida de documento}
 
-Essa tecnologia é amplamente aplicada em diversos setores, como jurídico, financeiro e governamental, pois oferece uma maneira segura e confiável de realizar transações sem a necessidade de documentos físicos. No Brasil, a \textit{Infraestrutura de Chaves Públicas Brasileira (ICP-Brasil)}, estabelecida pela Medida Provisória 2.200-2, é a base para a utilização de certificados digitais, que permitem a assinatura de documentos eletrônicos de forma válida e legal, equivalente à assinatura manuscrita \cite{souza2020}.
+A conferência do TCE usa um modelo generativo para ler o PDF e devolver um veredito (\texttt{APROVADO}, \texttt{PENDENCIAS} ou \texttt{ERRO}) e uma lista de itens. O prompt fixa as regras da Lei nº 11.788/2008 e da Resolução CEPE nº 104/2021 e os dados já cadastrados na solicitação, para o modelo confrontar o arquivo com o processo. O aluno vê o resultado, registra a ciência de cada pendência e pode seguir. O professor recebe o mesmo apoio na etapa de verificação e a interface informa que a revisão não substitui a análise dele. Esse desenho trata o modelo como leitor auxiliar, sujeito a omissão e a alerta indevido.
 
-A assinatura digital é fundamental para a digitalização de processos e para garantir a segurança e a integridade das informações trocadas. Ela também permite que o usuário tenha o controle sobre suas ações e documentos, assegurando que apenas ele possa assinar ou autorizar determinadas transações. Em sistemas jurídicos, a assinatura digital tem validade legal, de acordo com a legislação brasileira, e é frequentemente usada para autenticar contratos, declarações fiscais, e outros documentos importantes.
+\section{Mensageria}
 
-\subsection{Assinatura Digital no Governo Federal}
+O RabbitMQ é um intermediário de mensagens no protocolo AMQP. Produtores publicam em uma \textit{exchange} e consumidores leem de filas, o que desacopla o processamento do pedido que originou o evento \cite{rabbitmq_doc}.
 
-O Governo Federal do Brasil adotou a \textit{Assinatura Digital} como uma das principais ferramentas para garantir a autenticidade de documentos e a segurança de transações no âmbito público. Uma das principais plataformas para a implementação da assinatura digital nos serviços governamentais é a \textit{API de Assinatura Digital do GOV.BR} \footnote{https://www.gov.br/governodigital/pt-br/identidade/assinatura-eletronica/assinatura-eletronica-para-orgaos}, que integra o \textit{Login Único} e permite a assinatura de documentos eletrônicos por cidadãos e servidores públicos.
+No SIGCE há um único backend. Ele publica eventos de domínio, como solicitação criada, orientador aceito, documento anexado e processo concluído, na \textit{exchange} \texttt{sigce.events}. A fila \texttt{sigce.notifications} alimenta o registro de notificações. A assinatura do termo não passa por essa fila.
 
+\section{Verificação do sistema}
 
-Essa plataforma utiliza os padrões de segurança estabelecidos pela ICP-Brasil, permitindo que documentos sejam assinados digitalmente por meio de certificados emitidos por Autoridades Certificadoras credenciadas. O uso dessa tecnologia visa facilitar o processo de digitalização de serviços públicos e promover a eficiência na prestação de serviços ao cidadão. A assinatura digital proporcionada pelo GOV.BR garante não apenas a autenticidade dos documentos, mas também assegura que os dados sensíveis, como informações pessoais, estejam protegidos contra fraudes e acessos não autorizados.
+O Apache JMeter simula muitos clientes HTTP e mede tempo de resposta e estabilidade \cite{jmeter_doc}. O repositório traz o plano \texttt{jmeter/sigce-load-test.jmx} para a API local. Este texto não apresenta resultado de uma execução de carga.
 
-De acordo com o Governo Digital do Brasil, ``a plataforma de Assinatura Eletrônica para órgãos oferece uma solução eficaz e segura para a autenticação de documentos, 
-permitindo que os órgãos públicos assinem digitalmente documentos com validade jurídica, conforme os requisitos da ICP-Brasil''.
+O Selenium WebDriver controla um navegador e reproduz cliques, preenchimento e navegação \cite{selenium_doc}. O roteiro em Python \texttt{e2e/test\_sigce\_flow.py} percorre o fluxo da aplicação. Testes de unidade cobrem regras do backend em JUnit e componentes do frontend em Vitest. Esses artefatos verificam o comportamento implementado. Eles não substituem uma observação do uso com alunos e professores da FCTE.

@@ -1,0 +1,9 @@
+\chapter{Conclusão}
+
+O SIGCE reúne, para a FCTE, a abertura da solicitação de estágio, o sorteio do orientador e a tramitação do Termo de Compromisso até a conferência do professor. O acesso de aluno e professor é o Login Único. A regra de raio, comissão e afastamento, já usada no bot de Telegram, passou a valer na aplicação web, com indicação manual quando não há professor elegível. O aluno anexa o termo, lê a revisão assistida, registra a ciência das pendências, assina, trata a assinatura do supervisor e envia o processo. O professor vê seus orientandos, confere o PDF e assina por último.
+
+A arquitetura que sustenta esse fluxo é uma aplicação em camadas, com portas para o provedor de autenticação e para o provedor de assinatura. O RabbitMQ propaga eventos para notificações. A revisão por modelo generativo aponta pendências e não encerra o processo no lugar do professor.
+
+Dois limites ficam explícitos. O registro de assinatura na aplicação organiza a ordem dos signatários, e a API de Assinatura Eletrônica do Gov.br continua desligada até o Login Único ser homologado em produção. A utilidade da revisão assistida e o ganho de tempo da coordenação não foram medidos com usuários da FCTE.
+
+O prosseguimento natural é concluir essa homologação e ligar a porta de assinatura à API, observar o uso com a comissão de estágios e, então, retirar o sorteio paralelo do bot de Telegram. A mesma estrutura de solicitação e de etapas pode ser reconfigurada para outros cursos da FCTE quando as regras do projeto pedagógico correspondentes estiverem cadastradas.

@@ -1,0 +1,43 @@
+\chapter{Resultados}
+
+Este capítulo mostra o SIGCE em uso, no percurso de uma solicitação, e o que a verificação automatizada cobre. Os quadros indicam a captura a inserir. Cada um deve ser um print da tela correspondente, com dados fictícios ou com nome e CPF ocultos.
+
+\section{Percurso de uma solicitação}
+
+O estudante entra pela tela da Figura~\ref{fig:print-login}. Não há cadastro local de senha: o botão encaminha ao Login Único.
+
+\sigceilustracao{Captura de tela}{Print da página de login (\texttt{/login}), com o botão Entrar com GOV.BR visível e sem outros formulários de senha.}{Acesso ao SIGCE pelo Login Único}{fig:print-login}
+
+Antes da solicitação, o aluno envia o PDF do histórico. A Figura~\ref{fig:print-historico} deve mostrar o desafio: matrícula lida do arquivo e a imagem do captcha. O CPF do PDF é comparado ao CPF da conta; divergência interrompe a verificação.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/aluno/verificar-historico} no momento do captcha, com matrícula e data de emissão visíveis e com o CPF ilegível ou coberto.}{Verificação do histórico escolar}{fig:print-historico}
+
+A abertura da solicitação reúne curso, tipo de estágio, concedente, carga horária e datas. A Figura~\ref{fig:print-solicitacao} deve incluir uma mensagem de validação, por exemplo a exigência de bolsa no estágio não obrigatório ou a de 70\% de integralização para aproveitamento como Estágio Supervisionado.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/aluno/solicitacoes/nova} preenchida, de preferência com a validação de bolsa ou de integralização aparecendo na tela.}{Abertura da solicitação de estágio}{fig:print-solicitacao}
+
+O gestor acompanha o sorteio. A Figura~\ref{fig:print-sorteio} deve deixar visíveis o raio, quem está na comissão, quem está afastado e quem já foi sorteado na rodada.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/gestor/sorteio} com o raio, a lista da comissão e a separação entre disponíveis, afastados e já sorteados.}{Sorteio de orientador}{fig:print-sorteio}
+
+Com o orientador confirmado, o aluno anexa o TCE e lê a revisão. A Figura~\ref{fig:print-revisao} é a captura mais importante do fluxo: o PDF ao lado e a lista de itens da revisão, com pendências distinguíveis dos itens aceitos, e a ação de registrar a ciência.
+
+\sigceilustracao{Captura de tela}{Print da solicitação do aluno (\texttt{/aluno/solicitacoes/[id]}) com o preview do TCE e o resultado da revisão, incluindo ao menos uma pendência e o controle de ciência.}{Revisão assistida do termo}{fig:print-revisao}
+
+O supervisor não possui conta no sistema. A Figura~\ref{fig:print-supervisor} deve ser a página aberta pelo link, com o termo e a ação de assinar.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/supervisor/assinar/[token]}, aberto sem passar pelo login, com o termo e o botão de assinatura.}{Assinatura do supervisor pelo link}{fig:print-supervisor}
+
+O professor recebe o termo só depois do envio. A Figura~\ref{fig:print-professor} deve mostrar o preview, o texto de que a revisão não substitui a análise, e as ações de aprovar, recusar ou seguir para a assinatura.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/professor/solicitacao/[id]} na etapa Verificar o TCE, com o preview, o resultado da revisão e as ações do professor.}{Conferência do termo pelo orientador}{fig:print-professor}
+
+A lista de orientandos, na Figura~\ref{fig:print-orientandos}, mostra mais de um processo e a etapa em que cada um está, para cumprir o objetivo de acompanhamento.
+
+\sigceilustracao{Captura de tela}{Print de \texttt{/professor/orientandos} com pelo menos dois processos em etapas diferentes.}{Processos vinculados ao orientador}{fig:print-orientandos}
+
+\section{O que foi verificado}
+
+As regras de sorteio, de revisão por papel e de etapas da interface possuem testes de unidade. O roteiro Selenium percorre o fluxo da aplicação no navegador, e o plano JMeter descreve uma carga contra a API local. Esses testes sustentam que as regras codificadas se comportam como o especificado nos casos cobertos.
+
+Não há, neste trabalho, medição de tempo de ciclo com processos reais da FCTE, nem taxa de acerto da revisão assistida em uma amostra de termos. A verificação do histórico depende de captcha e de sessão no SIGAA, com prazo curto para responder ao desafio. A API de assinatura do Gov.br não entrou na verificação de ponta a ponta, porque a implementação de produção dessa porta ainda não executa a chamada.

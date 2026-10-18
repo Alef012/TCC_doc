@@ -1,3 +1,23 @@
+% Quadro reservado para diagrama ou captura ainda não inserida no arquivo.
+\newcommand{\sigceilustracao}[4]{%
+  \begin{figure}[H]
+    \centering
+    \setlength{\fboxsep}{12pt}%
+    \fbox{%
+      \begin{minipage}{0.9\textwidth}
+        \centering
+        \vspace{1.5cm}
+        {\footnotesize\bfseries #1\par}
+        \vspace{0.6em}
+        {\footnotesize #2\par}
+        \vspace{1.5cm}
+      \end{minipage}%
+    }
+    \caption{#3}
+    \label{#4}
+  \end{figure}%
+}
+
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
 \renewcommand{\backref}{}
 \renewcommand*{\backrefalt}[4]{
