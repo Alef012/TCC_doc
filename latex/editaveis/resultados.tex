@@ -1,43 +1,82 @@
 \chapter{Resultados}
 
-Este capítulo mostra o SIGCE em uso, no percurso de uma solicitação, e o que a verificação automatizada cobre. Os quadros indicam a captura a inserir. Cada um deve ser um print da tela correspondente, com dados fictícios ou com nome e CPF ocultos.
+Este capítulo mostra o SIGCE em uso, no percurso de uma solicitação, e o que a verificação automatizada cobre.
 
 \section{Percurso de uma solicitação}
 
 O estudante entra pela tela da Figura~\ref{fig:print-login}. Não há cadastro local de senha: o botão encaminha ao Login Único.
 
-\sigceilustracao{Captura de tela}{Print da página de login (\texttt{/login}), com o botão Entrar com GOV.BR visível e sem outros formulários de senha.}{Acesso ao SIGCE pelo Login Único}{fig:print-login}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.92\textwidth]{figuras/entrarComGov.png}
+	\caption{Acesso ao SIGCE pelo Login Único}
+	\label{fig:print-login}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-Antes da solicitação, o aluno envia o PDF do histórico. A Figura~\ref{fig:print-historico} deve mostrar o desafio: matrícula lida do arquivo e a imagem do captcha. O CPF do PDF é comparado ao CPF da conta; divergência interrompe a verificação.
+Antes da solicitação, o aluno envia o PDF do histórico. O CPF do arquivo é comparado ao CPF da conta Gov.br e a validação pede o captcha do SIGAA. A Figura~\ref{fig:print-historico} mostra o passo seguinte: o curso, o tipo de estágio e a integralização já vieram do último histórico aceito, e um novo PDF só é anexado quando esses dados precisam ser atualizados.
 
-\sigceilustracao{Captura de tela}{Print de \texttt{/aluno/verificar-historico} no momento do captcha, com matrícula e data de emissão visíveis e com o CPF ilegível ou coberto.}{Verificação do histórico escolar}{fig:print-historico}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.78\textwidth,height=0.72\textheight]{figuras/enviarHistorico.png}
+	\caption{Nova solicitação com os dados lidos do histórico}
+	\label{fig:print-historico}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-A abertura da solicitação reúne curso, tipo de estágio, concedente, carga horária e datas. A Figura~\ref{fig:print-solicitacao} deve incluir uma mensagem de validação, por exemplo a exigência de bolsa no estágio não obrigatório ou a de 70\% de integralização para aproveitamento como Estágio Supervisionado.
+O restante do formulário reúne concedente, supervisor, vigência e bolsa. A Figura~\ref{fig:print-solicitacao} registra a regra aplicada na tela: no estágio não obrigatório a bolsa é compensatória, conforme a Lei nº 11.788/2008, e o envio só segue depois que o aluno confirma que já possui o termo e que o horário não colide com as aulas.
 
-\sigceilustracao{Captura de tela}{Print de \texttt{/aluno/solicitacoes/nova} preenchida, de preferência com a validação de bolsa ou de integralização aparecendo na tela.}{Abertura da solicitação de estágio}{fig:print-solicitacao}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.78\textwidth,height=0.72\textheight]{figuras/enviarSolicitacao.png}
+	\caption{Envio da solicitação, com a exigência de bolsa do estágio não obrigatório}
+	\label{fig:print-solicitacao}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-O gestor acompanha o sorteio. A Figura~\ref{fig:print-sorteio} deve deixar visíveis o raio, quem está na comissão, quem está afastado e quem já foi sorteado na rodada.
+O gestor acompanha o sorteio. A Figura~\ref{fig:print-sorteio} deixa visíveis o raio, quem está disponível, quem já foi sorteado na rodada, quem ultrapassou o raio e quem está afastado.
 
-\sigceilustracao{Captura de tela}{Print de \texttt{/gestor/sorteio} com o raio, a lista da comissão e a separação entre disponíveis, afastados e já sorteados.}{Sorteio de orientador}{fig:print-sorteio}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.78\textwidth,height=0.72\textheight]{figuras/gestorSorteio.png}
+	\caption{Sorteio de orientador, com raio igual a 3}
+	\label{fig:print-sorteio}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-Com o orientador confirmado, o aluno anexa o TCE e lê a revisão. A Figura~\ref{fig:print-revisao} é a captura mais importante do fluxo: o PDF ao lado e a lista de itens da revisão, com pendências distinguíveis dos itens aceitos, e a ação de registrar a ciência.
+Depois do sorteio, a solicitação fica na etapa de orientador indicado até o professor confirmar. A Figura~\ref{fig:print-orientador} mostra esse estado: o nome do orientador, a área, o status de aguardando confirmação e o aviso de que o processo depende do professor. O termo ainda não foi anexado.
 
-\sigceilustracao{Captura de tela}{Print da solicitação do aluno (\texttt{/aluno/solicitacoes/[id]}) com o preview do TCE e o resultado da revisão, incluindo ao menos uma pendência e o controle de ciência.}{Revisão assistida do termo}{fig:print-revisao}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.86\textwidth,height=0.72\textheight]{figuras/orientadorIndicado.png}
+	\caption{Solicitação com orientador indicado, aguardando confirmação}
+	\label{fig:print-orientador}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-O supervisor não possui conta no sistema. A Figura~\ref{fig:print-supervisor} deve ser a página aberta pelo link, com o termo e a ação de assinar.
+Com o orientador confirmado, o aluno anexa o TCE e lê a revisão. A Figura~\ref{fig:print-revisao} é a checagem assistida: a lista separa o que está conforme e o que está errado, neste caso divergência de empresa e data de início retroativa, e o aluno escolhe seguir com as pendências ou anexar outro PDF.
 
-\sigceilustracao{Captura de tela}{Print de \texttt{/supervisor/assinar/[token]}, aberto sem passar pelo login, com o termo e o botão de assinatura.}{Assinatura do supervisor pelo link}{fig:print-supervisor}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.92\textwidth,height=0.72\textheight]{figuras/envioTCE.png}
+	\caption{Revisão assistida do termo, com pendências e a escolha do aluno}
+	\label{fig:print-revisao}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-O professor recebe o termo só depois do envio. A Figura~\ref{fig:print-professor} deve mostrar o preview, o texto de que a revisão não substitui a análise, e as ações de aprovar, recusar ou seguir para a assinatura.
+O professor recebe o termo só depois do envio. A Figura~\ref{fig:print-professor} mostra a linha do tempo até a etapa Verificar o TCE, o preview do documento e as ações de revisar com a IA, aceitar ou rejeitar o termo e assinar. A revisão permanece apoio de leitura.
 
-\sigceilustracao{Captura de tela}{Print de \texttt{/professor/solicitacao/[id]} na etapa Verificar o TCE, com o preview, o resultado da revisão e as ações do professor.}{Conferência do termo pelo orientador}{fig:print-professor}
+\begin{figure}[H]
+	\centering
+	\includegraphics[keepaspectratio=true,width=0.92\textwidth,height=0.72\textheight]{figuras/verificarTCE.png}
+	\caption{Conferência do termo pelo orientador}
+	\label{fig:print-professor}
+	\fonte{Elaborada pelos autores.}
+\end{figure}
 
-A lista de orientandos, na Figura~\ref{fig:print-orientandos}, mostra mais de um processo e a etapa em que cada um está, para cumprir o objetivo de acompanhamento.
-
-\sigceilustracao{Captura de tela}{Print de \texttt{/professor/orientandos} com pelo menos dois processos em etapas diferentes.}{Processos vinculados ao orientador}{fig:print-orientandos}
 
 \section{O que foi verificado}
 
 As regras de sorteio, de revisão por papel e de etapas da interface possuem testes de unidade. O roteiro Selenium percorre o fluxo da aplicação no navegador, e o plano JMeter descreve uma carga contra a API local. Esses testes sustentam que as regras codificadas se comportam como o especificado nos casos cobertos.
 
-Não há, neste trabalho, medição de tempo de ciclo com processos reais da FCTE, nem taxa de acerto da revisão assistida em uma amostra de termos. A verificação do histórico depende de captcha e de sessão no SIGAA, com prazo curto para responder ao desafio. A API de assinatura do Gov.br não entrou na verificação de ponta a ponta, porque a implementação de produção dessa porta ainda não executa a chamada.
+A comparação com o SIGAA, neste trabalho, é a das funções. O módulo institucional passou a assinar o estágio pelo Gov.br e permanece um fluxo geral da universidade. O SIGCE acrescenta a indicação automática do orientador e a checagem do termo antes da leitura do professor, num percurso de uma etapa por vez. Não houve medição de tempo com os mesmos usuários nos dois sistemas, nem taxa de acerto da revisão assistida numa amostra de termos. A verificação do histórico depende de captcha e de sessão no SIGAA, com prazo curto para responder ao desafio. A API de assinatura do Gov.br não entrou na verificação de ponta a ponta, porque a implementação de produção dessa porta ainda não executa a chamada.
