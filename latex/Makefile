@@ -1,9 +1,8 @@
 TARGET = TCC_FGA.pdf
 
 BIBTEX = bibtex
-LATEX = latex
-DVIPS = dvips
-PS2PDF = ps2pdf
+LATEX = pdflatex
+LATEX_FLAGS = -interaction=nonstopmode -halt-on-error
 
 VERSION = 0.1.0
 
@@ -38,12 +37,10 @@ all:
 	@make $(TARGET)
      
 $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
-	$(LATEX) $(MAIN_FILE) $(SOURCES)
+	$(LATEX) $(LATEX_FLAGS) $(MAIN_FILE)
 	$(BIBTEX) $(AUX_FILE)
-	$(LATEX) $(MAIN_FILE) $(SOURCES)
-	$(LATEX) $(MAIN_FILE) $(SOURCES)
-	$(DVIPS) $(DVI_FILE)
-	$(PS2PDF) $(PS_FILE)
+	$(LATEX) $(LATEX_FLAGS) $(MAIN_FILE)
+	$(LATEX) $(LATEX_FLAGS) $(MAIN_FILE)
 	@cp $(PDF_FILE) $(TARGET)
 
 clean:
