@@ -10,7 +10,7 @@ Neste trabalho, a técnica usada foi o \textit{brainstorming}, com alunos que j�
     \item \textbf{Abertura de solicitação pelo aluno.} O aluno inicia o processo na plataforma, com empresa, carga horária, datas, tipo de estágio e dados exigidos pela regra curricular.
     \item \textbf{Indicação do professor orientador.} O sistema sorteia um orientador da comissão com a regra de raio já usada no bot de Telegram: entram professores ativos, fora de afastamento, e o sorteio considera a menor carga acrescida de um raio. Se não houver elegível, a solicitação fica para indicação manual do gestor.
     \item \textbf{Assinatura do aluno e do professor.} Cada um assina na sua etapa. O professor assina por último, depois de conferir o TCE.
-    \item \textbf{Assinatura do supervisor.} O supervisor da concedente assina por um link da solicitação, ou o aluno informa que a assinatura já consta no arquivo.
+    \item \textbf{Assinatura do supervisor.} O supervisor da concedente assina pela API do Gov.br, a partir de um link da solicitação e de um código enviado ao e-mail cadastrado. O aluno também pode informar que a assinatura já consta no arquivo.
     \item \textbf{Orientandos.} O professor vê os processos vinculados a ele e a etapa de cada um.
     \item \textbf{Login Único.} Estudante e professor entram com a conta Gov.br. O acesso é o Login Único, e a credencial institucional da UnB fica a cargo dessa conta.
     \item \textbf{Revisão assistida do TCE.} Um modelo generativo confere o PDF e lista pendências. O aluno registra a ciência e pode seguir. O professor continua obrigado a analisar o termo.
@@ -42,21 +42,19 @@ Abertura da solicitação pelo aluno & Must & Implementada, com as regras de bol
 \hline
 Sorteio de orientador com raio & Must & Implementado, com indicação manual quando o sorteio não tem elegível. \\
 \hline
-Assinatura do aluno e do professor & Must & Etapas implementadas. A API de assinatura do Gov.br permanece desligada. \\
+Assinatura do aluno e do professor & Must & Implementada pela API de Assinatura Eletrônica do Gov.br. \\
 \hline
 Login Único & Must & Único acesso de aluno e professor. \\
 \hline
 Lista de orientandos & Should & Implementada no painel do professor. \\
 \hline
-Assinatura do supervisor & Should & Implementada por link, sem conta Gov.br. \\
+Assinatura do supervisor & Should & Implementada por link, com a mesma assinatura do Gov.br. \\
 \hline
 Verificação do histórico do SIGAA & Should & Implementada, com confronto de CPF e captcha. \\
 \hline
 Revisão assistida do TCE & Could & Implementada como apoio. A pendência não impede o professor de revisar. \\
 \hline
 Geração automática do TCE & Won't & O aluno anexa o PDF. \\
-\hline
-API de Assinatura Eletrônica em produção & Won't & Depende do Login Único homologado em produção. \\
 \hline
 \end{tabular}
 \end{table}
@@ -65,7 +63,7 @@ API de Assinatura Eletrônica em produção & Won't & Depende do Login Único ho
 
 A arquitetura descreve a estrutura que orienta a construção e a mudança do sistema \cite{bass2012software}. O SIGCE adota a Regra da Dependência da Arquitetura Limpa \cite{martin2017clean}: regras de estágio, sorteio e etapas ficam no núcleo, e banco, Gov.br, modelo generativo e fila ficam fora. Os casos de uso dependem de portas, como \texttt{AuthProvider} e \texttt{SignatureProvider}, e a infraestrutura fornece a implementação \cite{evans2003domain}.
 
-O sistema em execução é uma aplicação. O frontend Next.js conversa com um backend Spring Boot. Esse backend concentra autenticação, solicitação, sorteio, documento, revisão, assinatura e auditoria. A Figura~\ref{fig:arquitetura} registra o desenho de camadas usado como referência. A Figura~\ref{fig:implantacao} mostra a implantação: os quatro acessos, os processos do Docker Compose e os serviços externos. A API de assinatura do Gov.br aparece tracejada porque a porta existe e a chamada de produção não.
+O sistema em execução é uma aplicação. O frontend Next.js conversa com um backend Spring Boot. Esse backend concentra autenticação, solicitação, sorteio, documento, revisão, assinatura e auditoria. A Figura~\ref{fig:arquitetura} registra o desenho de camadas usado como referência. A Figura~\ref{fig:implantacao} mostra a implantação: os quatro acessos, os processos do Docker Compose e os serviços externos. A API de assinatura do Gov.br está ligada ao backend: o assinante autoriza nela e o PDF assinado retorna à solicitação.
 
 \begin{figure}[H]
 	\centering
@@ -101,7 +99,7 @@ A implementação usa a seguinte base:
 
 \subsection{Eventos e notificações}
 
-Quando a solicitação muda de situação, o backend publica um evento na \textit{exchange} \texttt{sigce.events}. Exemplos de chave são \texttt{sigce.request.created}, \texttt{sigce.advisor.accepted\_by\_professor}, \texttt{sigce.document.uploaded} e \texttt{sigce.process.finished}. O consumidor da fila \texttt{sigce.notifications} grava a notificação. Se a publicação falha, o fluxo da solicitação segue e a falha fica registrada em log. A assinatura do termo ocorre na mesma requisição da etapa correspondente.
+Quando a solicitação muda de situação, o backend publica um evento na \textit{exchange} \texttt{sigce.events}. Exemplos de chave são \texttt{sigce.request.created}, \texttt{sigce.advisor.accepted\_by\_professor}, \texttt{sigce.document.uploaded} e \texttt{sigce.process.finished}. O consumidor da fila \texttt{sigce.notifications} grava a notificação. Se a publicação falha, o fluxo da solicitação segue e a falha fica registrada em log. A fila não assina o termo. A assinatura ocorre na etapa do signatário, pela API do Gov.br.
 
 \section{Integração com o Gov.br}
 
@@ -109,7 +107,7 @@ A autenticação e a assinatura dependem de credenciais pedidas à plataforma Go
 
 Com as credenciais de homologação, o fluxo de autorização foi exercitado no ambiente de desenvolvimento, no retorno configurado para o endereço exigido pelo Gov.br. O Compose prepara esse retorno quando a máquina de desenvolvimento não possui o endereço na interface de rede.
 
-A API de Assinatura Eletrônica não pôde ser solicitada em paralelo. A liberação de produção dessa API exige o Login Único já homologado e publicado. A classe prevista para essa chamada existe e, com a propriedade de produção desligada, não é a implementação usada. O fluxo de quem assina está implementado sobre a outra implementação da mesma porta. Esse registro de etapa não equivale ao certificado da API ainda não conectada.
+A API de Assinatura Eletrônica dependia do Login Único já homologado e, por isso, não pôde ser pedida em paralelo. Com a credencial liberada, \texttt{GovBrSignatureProvider} passou a ser a implementação usada. Na etapa de assinatura, a aplicação envia o signatário à autorização do Gov.br e, no retorno, solicita a assinatura do PDF. Aluno e professor fazem isso na própria sessão. O supervisor abre o link da solicitação, informa o código enviado ao e-mail e autoriza na mesma API.
 
 \section{Fluxo implementado}
 
@@ -123,13 +121,13 @@ Depois que o orientador confirma, o termo percorre as etapas mantidas nos modelo
 	\fonte{Elaborada pelos autores.}
 \end{figure}
 
-O aluno só anexa o termo depois da confirmação do orientador. A revisão devolve itens corretos e itens com pendência. Na consulta, o aluno lê o resultado. Na resolução, marca cada pendência como tratada ou não aplicável, e pode anexar outro PDF. A assinatura do aluno vem depois dessa ciência. Em seguida, o supervisor é convidado por link ou o aluno informa que a assinatura da concedente já está no arquivo. Antes de enviar ao professor, a solicitação tem uma thread de esclarecimentos: a recusa do professor nessa etapa encerra o processo. O professor compara o preview com a revisão, aprova ou recusa, e só então assina.
+O aluno só anexa o termo depois da confirmação do orientador. A revisão devolve itens corretos e itens com pendência. Na consulta, o aluno lê o resultado. Na resolução, marca cada pendência como tratada ou não aplicável, e pode anexar outro PDF. A assinatura do aluno vem depois dessa ciência. Em seguida, o supervisor é convidado por link e assina pelo Gov.br, ou o aluno informa que a assinatura da concedente já está no arquivo. Antes de enviar ao professor, a solicitação tem uma thread de esclarecimentos: a recusa do professor nessa etapa encerra o processo. O professor compara o preview com a revisão, aprova ou recusa, e só então assina.
 
 Os papéis com telas próprias são o aluno, o professor, o gestor (sorteio, comissão e processos) e o supervisor, restrito ao link do termo. Há também o administrador de modelos de etapa e a consulta da trilha de auditoria.
 
 \section{Encaminhamento do TCC 2}
 
-O TCC 2 concentrou a implementação descrita neste capítulo, a documentação do desenvolvimento e a preparação da apresentação. A Tabela~\ref{tab:cronograma-tcc2} é o cronograma usado para organizar esse período. A atividade que continua dependente de terceiro é a publicação da API de assinatura do Gov.br, bloqueada pela homologação do Login Único em produção.
+O TCC 2 concentrou a implementação descrita neste capítulo, a documentação do desenvolvimento e a preparação da apresentação. A Tabela~\ref{tab:cronograma-tcc2} é o cronograma usado para organizar esse período. A assinatura pela API do Gov.br, antes bloqueada pela homologação do Login Único, entrou nesta versão.
 
 \begin{table}[H]
 \centering
@@ -147,11 +145,11 @@ Desenvolver a ferramenta & X & X & X & X &  \\
 \hline
 Testes e validação do sistema & & X & X & X & \\
 \hline
-Documentação do TCC 2 & & X & X & X & X \\
+Documentação do TCC 2 & & X & X & X &  \\
 \hline
 Revisão e ajustes finais & & & X & X & \\
 \hline
-Apresentação do TCC 2 & & & & & X \\
+Apresentação do TCC 2 & & & & X &  \\
 \hline
 \end{tabular}
 \end{table}

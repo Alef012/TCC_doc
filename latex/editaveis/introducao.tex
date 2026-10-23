@@ -1,16 +1,16 @@
 \chapter[Introdução]{Introdução}
 
-A contratação de estágio na Faculdade de Ciências e Tecnologias em Engenharia (FCTE) da Universidade de Brasília envolve o estudante, um professor orientador, um supervisor na parte concedente e a coordenação que acompanha o processo. No curso de Engenharia de Software, a indicação de orientador já tinha uma regra operacional no bot de Telegram da comissão: sorteio por raio de carga, comissão ativa e períodos de afastamento. Quando o TCC 1 foi entregue, a tramitação do Termo de Compromisso de Estágio (TCE) ainda dependia de planilhas, mensagens e trocas de arquivo. No intervalo até o TCC 2, o SIGAA passou a conduzir o processo de estágio com assinatura pelo Gov.br. A universidade já dispõe, portanto, de um módulo institucional para esse trâmite. Este trabalho descreve o SIGCE como um fluxo mais fácil de percorrer do que esse módulo, para a comissão da FCTE.
+A contratação de estágio na Faculdade de Ciências e Tecnologias em Engenharia (FCTE) da Universidade de Brasília reúne o estudante, um professor orientador, um supervisor na parte concedente e a coordenação que acompanha o processo. O Termo de Compromisso de Estágio (TCE) circula entre essas pessoas. A comissão precisa indicar o orientador, conferir o documento e acompanhar cada assinatura. Este trabalho apresenta o SIGCE, sistema web que organiza esse percurso para a comissão da FCTE.
 
 \section{Justificativa}
 
-O SIGAA resolve a existência de um registro acadêmico de estágio com assinatura Gov.br. O uso cotidiano na FCTE continua pesado: o aluno percorre um módulo geral da universidade, a coordenação ainda redistribui orientador à parte, e a leitura do TCE fica inteira para o professor. A comissão de Engenharia de Software já sorteava orientador por raio no Telegram, e essa regra não entra no módulo geral.
+Hoje o SIGAA já oferece o registro acadêmico de estágio da universidade, com assinatura pelo Gov.br. Porém, o uso cotidiano na FCTE continua pesado: o aluno percorre um módulo geral, a coordenação redistribui o orientador à parte, e a leitura do TCE fica inteira para o professor. A comissão de Engenharia de Software já sorteava orientador por raio, comissão ativa e afastamento, e essa regra não entra no módulo geral.
 
-O SIGCE foi desenhado para esse uso. A indicação do orientador é automática, com a mesma regra de raio, comissão e afastamento, e cai para o gestor só quando não há professor elegível. A checagem do termo por modelo generativo mostra pendências de conformidade com a Lei nº 11.788/2008 e com a Resolução CEPE nº 104/2021 antes da leitura do professor, que continua decidindo \cite{lei11788,cepe1042021}. O aluno vê uma etapa por vez. O supervisor da concedente entra por um link, sem conta Gov.br. Essas duas funções, indicação automática e checagem do termo, e o percurso guiado são o que torna a aplicação mais usável e mais simples do que o módulo de estágio do SIGAA para esta comissão.
+O SIGCE foi desenhado para esse uso. A indicação do orientador é automática, com a mesma regra da comissão, e passa ao gestor quando não há professor elegível. A checagem do termo por modelo generativo mostra pendências de conformidade com a Lei nº 11.788/2008 e com a Resolução CEPE nº 104/2021 antes da leitura do professor, que continua decidindo \cite{lei11788,cepe1042021}. O aluno vê uma etapa por vez. O supervisor da concedente entra por um link e assina pelo Gov.br. Aluno e professor entram pelo Login Único, e os três signatários usam a API de Assinatura Eletrônica do Gov.br. A indicação automática, a checagem do termo e o percurso guiado são o que torna a aplicação mais simples de usar do que o módulo de estágio do SIGAA para esta comissão.
 
 \section{Objetivos}
 
-Este trabalho tem como objetivo desenvolver uma aplicação de contratação de estágio para a FCTE que seja mais simples de usar do que o módulo de estágio do SIGAA, pela indicação automática do orientador e pela checagem do Termo de Compromisso antes da leitura do professor.
+Este trabalho tem como objetivo desenvolver o SIGCE, aplicação de contratação de estágio para a FCTE, com indicação automática do orientador e checagem do Termo de Compromisso antes da leitura do professor.
 
 Os objetivos específicos são:
 
@@ -24,4 +24,4 @@ Os objetivos específicos são:
 
 \section{Delimitação}
 
-O SIGCE atende ao fluxo da comissão de estágio da FCTE, com as regras exercitadas no curso de Engenharia de Software. Ele convive com o SIGAA: o histórico escolar continua vindo de lá, e o módulo institucional segue sendo o registro acadêmico geral da UnB. O aluno anexa o PDF do TCE. A comparação com o SIGAA, neste texto, é funcional: indicação automática, checagem assistida do termo e percurso em etapas visíveis. Uma medição de usabilidade com os mesmos usuários nos dois sistemas fica fora dos resultados apresentados. A chamada à API de Assinatura Eletrônica do Gov.br permanece desligada até a homologação do Login Único em produção.
+O SIGCE atende ao fluxo da comissão de estágio da FCTE, com as regras exercitadas no curso de Engenharia de Software. O histórico escolar é lido do SIGAA e confrontado com o CPF da conta Gov.br. O aluno anexa o PDF do TCE. Aluno, supervisor e professor assinam o termo pela API de Assinatura Eletrônica do Gov.br. A organização das etapas acompanha a solicitação do início ao processo finalizado.

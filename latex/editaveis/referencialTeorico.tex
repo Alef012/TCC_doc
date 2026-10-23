@@ -18,13 +18,13 @@ O módulo do SIGAA é geral: atende aos cursos da instituição com o mesmo pré
 
 O Login Único é a credencial da plataforma Gov.br para acesso a serviços públicos digitais. A integração de um sistema segue solicitação formal, homologação, envio de evidências e autorização de produção \cite{govbrlogin}. O protocolo é o OAuth 2.0, no qual o usuário autoriza o serviço sem entregar a senha à aplicação \cite{hardt2012oauth}. A conta possui níveis de confiabilidade bronze, prata e ouro. Quanto mais alto o nível, maior o conjunto de dados que o serviço pode solicitar.
 
-No SIGCE, o Login Único é o único acesso de estudante e professor. A sessão da aplicação é um \textit{cookie} \texttt{HttpOnly}. O nível ouro foi pedido no requerimento do serviço porque o fluxo manipula CPF, histórico escolar e documento de estágio. O supervisor da concedente não usa essa conta: entra por um link associado à solicitação.
+No SIGCE, o Login Único é o acesso de estudante e professor. A sessão da aplicação é um \textit{cookie} \texttt{HttpOnly}. O nível ouro foi pedido no requerimento do serviço porque o fluxo manipula CPF, histórico escolar e documento de estágio. O supervisor da concedente não mantém sessão permanente: abre um link da solicitação, entra com o Login Único e confirma um código enviado ao e-mail cadastrado.
 
 \section{Assinatura eletrônica}
 
 A assinatura eletrônica busca garantir autoria e integridade de um documento. A Medida Provisória nº 2.200-2, de 24 de agosto de 2001, institui a Infraestrutura de Chaves Públicas Brasileira (ICP-Brasil) e admite documentos eletrônicos assinados com certificado dessa infraestrutura \cite{mp22002}. O Gov.br oferece, sobre o Login Único, uma API de assinatura eletrônica para órgãos \cite{govbrassinaeletronica}.
 
-O SIGCE separa duas coisas. O fluxo de negócio já define quem assina e em que ordem: o aluno, o supervisor da concedente e, por último, o professor orientador. A chamada HTTP à API do Gov.br está isolada na porta \texttt{SignatureProvider}. A implementação de produção dessa porta ainda não é chamada, porque a credencial depende do Login Único em produção. Enquanto isso, a aplicação registra a etapa de assinatura por uma implementação substituta da mesma porta, sem apresentar esse registro como certificado ICP-Brasil.
+No SIGCE, a chamada à API fica na porta \texttt{SignatureProvider}. Na etapa de cada signatário, a aplicação abre a autorização do Gov.br. Com o código devolvido, a API assina o PDF e o arquivo assinado volta para a solicitação. A ordem é a do processo: o aluno, o supervisor da concedente e, por último, o professor orientador. O supervisor chega por um link da solicitação, confirma um código enviado ao e-mail cadastrado e então autoriza a assinatura na mesma API.
 
 \section{Revisão assistida de documento}
 
