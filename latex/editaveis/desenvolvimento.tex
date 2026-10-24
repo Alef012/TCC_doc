@@ -99,7 +99,7 @@ A implementação usa a seguinte base:
 
 \subsection{Eventos e notificações}
 
-Quando a solicitação muda de situação, o backend publica um evento na \textit{exchange} \texttt{sigce.events}. Exemplos de chave são \texttt{sigce.request.created}, \texttt{sigce.advisor.accepted\_by\_professor}, \texttt{sigce.document.uploaded} e \texttt{sigce.process.finished}. O consumidor da fila \texttt{sigce.notifications} grava a notificação. Se a publicação falha, o fluxo da solicitação segue e a falha fica registrada em log. A fila não assina o termo. A assinatura ocorre na etapa do signatário, pela API do Gov.br.
+Quando a solicitação muda de situação, o backend publica um evento na \textit{exchange} \texttt{sigce.\allowbreak events}. Exemplos de chave são \texttt{sigce.\allowbreak request.\allowbreak created}, \texttt{sigce.\allowbreak advisor.\allowbreak accepted\_\allowbreak by\_\allowbreak professor}, \texttt{sigce.\allowbreak document.\allowbreak uploaded} e \texttt{sigce.\allowbreak process.\allowbreak finished}. O consumidor da fila \texttt{sigce.\allowbreak notifications} grava a notificação. Se a publicação falha, o fluxo da solicitação segue e a falha fica registrada em log. A fila não assina o termo. A assinatura ocorre na etapa do signatário, pela API do Gov.br.
 
 \section{Integração com o Gov.br}
 
