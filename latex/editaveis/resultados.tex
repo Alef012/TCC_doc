@@ -1,6 +1,6 @@
 \chapter{Resultados}
 
-Este capítulo mostra o SIGCE em uso, no percurso de uma solicitação, o que a verificação automatizada cobre e a inspeção heurística desse percurso.
+Este capítulo mostra o SIGCE em uso, no percurso de uma solicitação, o que a verificação automatizada cobre, a inspeção heurística desse percurso e a passagem da revisão assistida do TCE.
 
 \section{Percurso de uma solicitação}
 
@@ -112,4 +112,78 @@ A classificação foi feita em 28 de outubro de 2026, sobre o percurso de 27 de 
 Os três pontos sem problema são estes. Nas etapas Consultar pendências e Resolver pendências, o texto ``Nenhuma pendência apontada pela IA. Etapa pulada.'' tornou o salto visível (severidade 0, heurística H1). O CNPJ foi mascarado e a tela avisou ``Razão social preenchida a partir do CNPJ'' (severidade 0, heurísticas H1 e H5). O tipo saiu fixo em não obrigatório, sem seletor, porque o histórico já tinha o estágio supervisionado cursado, e a página atribui esse dado ao histórico; a trava impede um tipo que a regra não admite (severidade 0, heurística H5).
 
 A inspeção viu, na condução, a etapa corrente, a frase de quem o processo depende e o diálogo que aponta o próximo controle. Os cinco achados ficam com a severidade atribuída, sem transformar a nota em julgamento do sistema inteiro. O achado grave é a disciplina do PPC exibida quando o aproveitamento está em Não. Os dois menores são a bolsa digitada em centavos sem essa convenção escrita e o sino que para em 9+ e só limpa um aviso por vez. Os dois cosméticos são o nome repetido na linha do tempo e o rótulo Disciplina do PPC de um lado e Disciplina do outro.
+
+\section{Avaliação da revisão assistida do TCE}
+
+A revisão assistida devolve um veredito e uma lista de itens. O professor aceita ou recusa o termo. O modelo não decide o estágio. A passagem abaixo confronta a saída dos dois caminhos do SIGCE com o gabarito dos doze termos sintéticos.
+
+\subsection{Resultados da passagem}
+
+A passagem é de 30 de outubro de 2026: uma chamada por termo, nos dois caminhos do SIGCE, temperatura 0,1, em doze termos sintéticos de uma página. A data de referência do gabarito é 30/10/2026. O professor continua decidindo o termo.
+
+No caminho DeepSeek, as 12 chamadas responderam \texttt{deepseek-flash}. O raciocínio ficou desligado, como no cliente. No caminho Gemini, o modelo pedido primeiro é \texttt{gemini-3.6-flash}. Sete chamadas ficaram nele (V2, D1, C1, C3, L1, L2 e L3). Cinco caíram na reserva \texttt{gemini-3.5-flash-lite} (V1, D2, D3, C2 e C4), no mesmo fallback do cliente quando o principal não responde.
+
+A classe positiva é \texttt{FALHA}. Precisão é o quanto das falhas apontadas pelo modelo estavam no gabarito. Revocação é o quanto das falhas do gabarito o modelo apontou. O intervalo é o de Wilson, 95\%. A Tabela~\ref{tab:acerto-revisao-tce} registra o acerto.
+
+\begin{table}[H]
+\centering
+\caption{Acerto da revisão assistida na passagem de 30/10/2026}
+\label{tab:acerto-revisao-tce}
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Medida} & \textbf{DeepSeek} & \textbf{Gemini} \\
+\hline
+Itens iguais ao gabarito & 101/120 (84,2\%) & 115/120 (95,8\%) \\
+\hline
+Intervalo de Wilson dos itens & 76,6\% a 89,6\% & 90,6\% a 98,2\% \\
+\hline
+Veredito do documento & 11/12 & 11/12 \\
+\hline
+Intervalo de Wilson do veredito & 64,6\% a 98,5\% & 64,6\% a 98,5\% \\
+\hline
+Defeitos detectados & 9/10 & 9/10 \\
+\hline
+Intervalo de Wilson dos defeitos & 59,6\% a 98,2\% & 59,6\% a 98,2\% \\
+\hline
+Verdadeiros positivos & 9 & 9 \\
+\hline
+Falsos positivos & 1 & 2 \\
+\hline
+Falsos negativos & 1 & 1 \\
+\hline
+Precisão da FALHA & 90,0\% & 81,8\% \\
+\hline
+Revocação da FALHA & 90,0\% & 90,0\% \\
+\hline
+\end{tabular}
+\end{table}
+
+O falso negativo do DeepSeek é o início retroativo (D1), no \texttt{deepseek-flash}. O falso negativo do caminho Gemini é o prazo acima de 2 anos (D3), e quem respondeu esse termo foi o \texttt{gemini-3.5-flash-lite}, não o 3.6 Flash. O falso positivo do DeepSeek é C1/\texttt{vigencia}. Os do Gemini são C1/\texttt{cadastro} e C2/\texttt{assinaturas\_tce}. Os dois caminhos acertaram bolsa, seguro, assinatura do aluno, plano, jornada, auxílio-transporte, integralização e a data divergente do cadastro.
+
+O status \texttt{ALERTA} não muda o veredito. No DeepSeek, 17 dos 19 itens diferentes do gabarito são \texttt{ALERTA} onde se esperava \texttt{OK}, quase todos em assinatura. No Gemini, são 2. Se \texttt{ALERTA} conta como compatível com \texttt{OK}, o teste de McNemar entre os dois caminhos dá $p = 1$ (3 itens só o DeepSeek acertou, 2 só o Gemini). No confronto estrito, em que \texttt{ALERTA} conta como erro, o mesmo teste dá $p = 0{,}004$ (4 itens só o DeepSeek, 18 só o Gemini). A diferença estrita é o \texttt{ALERTA} repetido, não a detecção da falha.
+
+O caminho de produção usa o DeepSeek e só chama o Gemini se o principal falha. Cada linha da Tabela~\ref{tab:custo-revisao-tce} é o custo se os 500 processos forem todos daquele modelo. O valor vale para termo do tamanho dos arquivos em \texttt{termos/}.
+
+\begin{table}[H]
+\centering
+\caption{Custo estimado de 500 processos por ano, por cenário de modelo}
+\label{tab:custo-revisao-tce}
+\begin{tabular}{|p{10.5cm}|r|}
+\hline
+\textbf{Cenário, 500 processos do tamanho destes termos} & \textbf{Custo} \\
+\hline
+DeepSeek Flash, fora do pico & US\$ 0,32 \\
+\hline
+DeepSeek Flash, no pico & US\$ 0,64 \\
+\hline
+Gemini 3.6 Flash, preço até 31/12/2026 & US\$ 4,66 \\
+\hline
+Gemini 3.6 Flash, preço a partir de 01/01/2027 & US\$ 9,33 \\
+\hline
+Gemini 3.5 Flash-Lite, reserva & US\$ 1,02 \\
+\hline
+\end{tabular}
+\end{table}
+
+Foi uma passagem só. O intervalo dos defeitos é largo por isso.
 
